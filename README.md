@@ -57,7 +57,6 @@ Este projeto foi desenvolvido para demonstrar:
 
 ###  SerieForm
 
-**Props:**
 
 * `onAddSerie`: cria uma nova série
 * `onUpdateSerie`: atualiza série existente
@@ -81,7 +80,6 @@ Este projeto foi desenvolvido para demonstrar:
 
 ###  SerieList
 
-**Props:**
 
 * `series` – lista atual de séries
 * `onEditSerie`
