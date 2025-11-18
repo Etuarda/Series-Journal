@@ -1,4 +1,4 @@
-# 📘 Série Journal – CRUD de Séries (Fase 1)
+#  Série Journal – CRUD de Séries 
 
 **Nome:** *Eduarda Silva Santos*
 
@@ -48,14 +48,14 @@ Este projeto foi desenvolvido para demonstrar:
 
 ##  Componentes
 
-### ** NavBar**
+###  NavBar
 
 * Exibe os links para navegação entre as páginas.
 * Usa callbacks enviados pelo componente pai.
 
 ---
 
-### ** SerieForm**
+###  SerieForm
 
 **Props:**
 
@@ -79,7 +79,7 @@ Este projeto foi desenvolvido para demonstrar:
 
 ---
 
-### ** SerieList**
+###  SerieList
 
 **Props:**
 
@@ -97,19 +97,19 @@ Este projeto foi desenvolvido para demonstrar:
 
 ---
 
-### ** HomePage**
+### HomePage
 
 Página inicial simples, contendo mensagem de boas-vindas.
 
 ---
 
-### ** AboutPage**
+###  AboutPage
 
 Página explicativa sobre o projeto.
 
 ---
 
-### ** CreateSeriePage**
+###  CreateSeriePage
 
 Encapsula o `SerieForm` e identifica se está no modo “criar” ou “editar”.
 
