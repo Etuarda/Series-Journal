@@ -1,0 +1,54 @@
+.serie-form-container {
+  padding-top: 32px;
+  padding-bottom: 32px;
+}
+
+.serie-form-paper {
+  padding: 24px;
+  border: 3px double #d4af37;
+  background-color: #2d0a0a;
+  box-shadow: 0 0 40px rgba(0, 0, 0, 0.6);
+}
+
+.serie-form-title {
+  margin-bottom: 32px;
+  font-family: 'Pinyon Script', cursive !important;
+  font-weight: 400 !important;
+  text-transform: none !important;
+  font-size: 2.5rem;
+  color: #ff1f1f !important;
+}
+
+.serie-form-actions-grid {
+  margin-top: 32px;
+}
+
+.serie-form-submit-button {
+  padding-top: 16px;
+  padding-bottom: 16px;
+  background-color: #e50914;
+}
+
+.serie-form-submit-button:hover {
+  background-color: #bb0810;
+}
+
+.serie-form-cancel-button {
+  margin-top: 16px;
+  color: #d4af37;
+}
+
+@media (min-width: 600px) {
+  .serie-form-container {
+    padding-top: 64px;
+    padding-bottom: 64px;
+  }
+
+  .serie-form-paper {
+    padding: 48px;
+  }
+
+  .serie-form-title {
+    font-size: 3.5rem;
+  }
+}

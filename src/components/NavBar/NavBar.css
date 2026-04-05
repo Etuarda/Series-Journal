@@ -1,0 +1,115 @@
+.navbar-appbar {
+  background-color: #1a0505;
+  border-bottom: 2px solid #d4af37;
+  box-shadow: none;
+}
+
+.navbar-toolbar {
+  justify-content: flex-start;
+  padding-right: 8px !important;
+  width: 100%;
+}
+
+.navbar-logo-wrap {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.navbar-logo-icon {
+  color: #d4af37;
+}
+
+.navbar-brand-title {
+  font-weight: 400 !important;
+  font-family: 'Pinyon Script', cursive !important;
+  color: #fdfbf7;
+  font-size: 1.05rem;
+}
+
+.navbar-brand-accent {
+  color: #e50914;
+}
+
+.navbar-desktop-menu {
+  display: none;
+  gap: 8px;
+  margin-left: auto;
+  margin-right: 0;
+}
+
+.navbar-desktop-button {
+  color: #fdfbf7 !important;
+  font-size: 0.75rem;
+  white-space: nowrap;
+}
+
+.navbar-desktop-button-active {
+  color: #e50914 !important;
+  border-bottom: 2px solid #e50914 !important;
+}
+
+.navbar-desktop-button-active .MuiButton-startIcon {
+  color: #e50914;
+}
+
+.navbar-mobile-menu-button {
+  display: inline-flex;
+  margin-left: auto !important;
+  margin-right: 0 !important;
+  align-self: center;
+}
+
+.navbar-drawer-paper {
+  width: 280px;
+}
+
+.navbar-drawer-root {
+  height: 100%;
+  background-color: #1a0505;
+  padding: 16px;
+}
+
+.navbar-drawer-close-wrap {
+  display: flex;
+  justify-content: flex-end;
+  margin-bottom: 32px;
+}
+
+.navbar-list-item {
+  margin-bottom: 16px;
+  color: #fdfbf7 !important;
+}
+
+.navbar-list-item-active {
+  color: #e50914 !important;
+  border-left: 4px solid #e50914;
+}
+
+.navbar-list-item-icon {
+  color: inherit;
+}
+
+@media (min-width: 600px) {
+  .navbar-logo-wrap {
+    gap: 16px;
+  }
+
+  .navbar-brand-title {
+    font-size: 1.5rem;
+  }
+}
+
+@media (min-width: 900px) {
+  .navbar-desktop-menu {
+    display: flex;
+  }
+
+  .navbar-toolbar {
+    padding-right: 6px !important;
+  }
+
+  .navbar-mobile-menu-button {
+    display: none;
+  }
+}

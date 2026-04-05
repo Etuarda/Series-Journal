@@ -1,17 +1,42 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
+import {
+  HashRouter as Router,
+  Route,
+  Routes,
+  useNavigate
+} from 'react-router-dom'
+import axios from 'axios'
+import {
+  Alert,
+  Box,
+  Button,
+  CircularProgress,
+  Container,
+  CssBaseline,
+  Dialog,
+  DialogActions,
+  DialogContent,
+  DialogContentText,
+  DialogTitle,
+  ThemeProvider
+} from '@mui/material'
+import { AlertTriangle } from 'lucide-react'
 import './App.css'
+import theme from './theme'
 import NavBar from './components/NavBar/NavBar.jsx'
-import HomePage from './pages/HomePage.jsx'
 import AboutPage from './pages/AboutPage.jsx'
 import CreateSeriePage from './pages/CreateSeriePage.jsx'
+import HomePage from './pages/HomePage.jsx'
 import SerieListPage from './pages/SerieListPage.jsx'
 
-const initialSeries = [
+const API_URL = 'http://localhost:5000/series'
+
+const MOCK_DATA = [
   {
     id: 1,
     titulo: 'La Casa de Papel',
     numeroTemporadas: 3,
-    dataLancamento: '2020-05-20',
+    dataLancamento: '2017-05-02',
     diretor: 'Álex Pina',
     produtora: 'Netflix',
     categoria: 'Drama',
@@ -21,7 +46,7 @@ const initialSeries = [
     id: 2,
     titulo: 'Breaking Bad',
     numeroTemporadas: 5,
-    dataLancamento: '2008-01-22',
+    dataLancamento: '2008-01-20',
     diretor: 'Vince Gilligan',
     produtora: 'Sony Pictures',
     categoria: 'Drama',
@@ -29,106 +54,136 @@ const initialSeries = [
   },
   {
     id: 3,
-    titulo: 'Friends',
-    numeroTemporadas: 10,
-    dataLancamento: '1994-09-22',
-    diretor: 'Kevin S. Bright',
-    produtora: 'Warner Bros',
-    categoria: 'Comédia',
-    dataAssistiu: '2010-10-10'
+    titulo: 'Fleabag',
+    numeroTemporadas: 2,
+    dataLancamento: '2016-07-21',
+    diretor: 'Phoebe Waller-Bridge',
+    produtora: 'BBC',
+    categoria: 'Comedy/Drama',
+    dataAssistiu: '2024-01-14'
   }
 ]
 
-function App() {
-  const [currentPage, setCurrentPage] = useState('home')
-  const [series, setSeries] = useState(initialSeries)
-  const [editingSerie, setEditingSerie] = useState(null)
+function AppContent() {
+  const [series, setSeries] = useState([])
+  const [loading, setLoading] = useState(true)
+  const [isOffline, setIsOffline] = useState(false)
+  const [deleteId, setDeleteId] = useState(null)
+  const [openDeleteModal, setOpenDeleteModal] = useState(false)
+  const navigate = useNavigate()
 
-  const handleNavigate = (page) => {
-    setCurrentPage(page)
-  }
-
-  const handleAddSerie = (novaSerie) => {
-    setSeries((previousSeries) => {
-      const lastId =
-        previousSeries.length > 0
-          ? previousSeries[previousSeries.length - 1].id
-          : 0
-
-      return [
-        ...previousSeries,
-        {
-          ...novaSerie,
-          id: lastId + 1
-        }
-      ]
-    })
-  }
-
-  const handleUpdateSerie = (serieAtualizada) => {
-    setSeries((previousSeries) =>
-      previousSeries.map((serie) =>
-        serie.id === serieAtualizada.id ? serieAtualizada : serie
-      )
-    )
-  }
-
-  const handleDeleteSerie = (id) => {
-    setSeries((previousSeries) =>
-      previousSeries.filter((serie) => serie.id !== id)
-    )
-  }
-
-  const handleStartEdit = (id) => {
-    const serieParaEditar = series.find((serie) => serie.id === id)
-    if (!serieParaEditar) return
-
-    setEditingSerie(serieParaEditar)
-    setCurrentPage('create')
-  }
-
-  const handleFinishEdit = () => {
-    setEditingSerie(null)
-  }
-
-  // usado pelo botão "Cadastrar nova série"
-  const handleCreateNewSerieFromList = () => {
-    setEditingSerie(null)
-    setCurrentPage('create')
-  }
-
-  const renderPage = () => {
-    switch (currentPage) {
-      case 'about':
-        return <AboutPage />
-      case 'create':
-        return (
-          <CreateSeriePage
-            onAddSerie={handleAddSerie}
-            onUpdateSerie={handleUpdateSerie}
-            editingSerie={editingSerie}
-            onFinishEdit={handleFinishEdit}
-          />
-        )
-      case 'list':
-        return (
-          <SerieListPage
-            series={series}
-            onDeleteSerie={handleDeleteSerie}
-            onEditSerie={handleStartEdit}
-            onCreateNewSerie={handleCreateNewSerieFromList}
-          />
-        )
-      default:
-        return <HomePage />
+  const loadData = async () => {
+    setLoading(true)
+    try {
+      const response = await axios.get(API_URL, { timeout: 4000 })
+      setSeries(response.data)
+      setIsOffline(false)
+    } catch (error) {
+      setSeries(MOCK_DATA)
+      setIsOffline(true)
+    } finally {
+      setLoading(false)
     }
   }
 
+  useEffect(() => {
+    loadData()
+  }, [])
+
+  const handleDeleteRequest = (id) => {
+    setDeleteId(id)
+    setOpenDeleteModal(true)
+  }
+
+  const handleConfirmDelete = async () => {
+    if (deleteId) {
+      try {
+        if (!isOffline) {
+          await axios.delete(`${API_URL}/${deleteId}`)
+        }
+        setSeries((previous) => previous.filter((item) => item.id !== deleteId))
+      } catch (error) {
+        console.error('Erro ao deletar:', error)
+      }
+    }
+    setOpenDeleteModal(false)
+    setDeleteId(null)
+  }
+
   return (
-    <div>
-      <NavBar currentPage={currentPage} onNavigate={handleNavigate} />
-      {renderPage()}
-    </div>
+    <>
+      <NavBar />
+      <Routes>
+        <Route path="/" element={<HomePage />} />
+        <Route path="/about" element={<AboutPage />} />
+        <Route
+          path="/series"
+          element={
+            <Container maxWidth="lg">
+              {loading ? (
+                <Box className="app-loading-box">
+                  <CircularProgress color="secondary" />
+                </Box>
+              ) : (
+                <SerieListPage
+                  series={series}
+                  isOffline={isOffline}
+                  onDeleteSerie={handleDeleteRequest}
+                  onEditSerie={(id) => navigate(`/edit/${id}`)}
+                />
+              )}
+            </Container>
+          }
+        />
+        <Route path="/create" element={<CreateSeriePage isOffline={isOffline} />} />
+        <Route path="/edit/:id" element={<CreateSeriePage isOffline={isOffline} />} />
+      </Routes>
+
+      <Dialog
+        open={openDeleteModal}
+        onClose={() => setOpenDeleteModal(false)}
+        aria-labelledby="alert-dialog-title"
+        aria-describedby="alert-dialog-description"
+      >
+        <DialogTitle id="alert-dialog-title" className="app-delete-dialog-title">
+          <AlertTriangle size={24} className="app-delete-alert-icon" />
+          Confirmar Exclusao
+        </DialogTitle>
+        <DialogContent>
+          <DialogContentText id="alert-dialog-description" className="app-delete-dialog-text">
+            Tem certeza que deseja remover esta obra da sua colecao real? Esta acao nao podera
+            ser desfeita.
+          </DialogContentText>
+        </DialogContent>
+        <DialogActions className="app-delete-dialog-actions">
+          <Button onClick={() => setOpenDeleteModal(false)} color="secondary">
+            Cancelar
+          </Button>
+          <Button onClick={handleConfirmDelete} variant="contained" color="primary" autoFocus>
+            Apagar Serie
+          </Button>
+        </DialogActions>
+      </Dialog>
+
+      {isOffline && (
+        <Alert severity="warning" className="app-offline-alert">
+          Modo offline ativo. Exibindo dados de demonstracao.
+        </Alert>
+      )}
+    </>
+  )
+}
+
+function App() {
+  return (
+    <ThemeProvider theme={theme}>
+      <CssBaseline />
+      <Box className="app-shell">
+        <Router>
+          <AppContent />
+        </Router>
+      </Box>
+    </ThemeProvider>
   )
 }
 

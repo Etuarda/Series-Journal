@@ -1,213 +1,213 @@
-import React, { useEffect, useState } from 'react'
+import { useEffect, useState } from 'react'
+import { useNavigate, useParams } from 'react-router-dom'
+import axios from 'axios'
+import {
+  Button,
+  CircularProgress,
+  Container,
+  Grid,
+  Paper,
+  TextField,
+  Typography
+} from '@mui/material'
+import './SerieForm.css'
 
-const initialFormState = {
-  titulo: '',
-  numeroTemporadas: '',
-  dataLancamento: '',
-  diretor: '',
-  produtora: '',
-  categoria: '',
-  dataAssistiu: ''
-}
+const API_URL = 'http://localhost:5000/series'
 
-function SerieForm({ onAddSerie, onUpdateSerie, editingSerie, onFinishEdit }) {
-  const [formValues, setFormValues] = useState(initialFormState)
-  const [errorMessage, setErrorMessage] = useState('')
+const MOCK_DATA = [
+  {
+    id: 1,
+    titulo: 'La Casa de Papel',
+    numeroTemporadas: 3,
+    dataLancamento: '2017-05-02',
+    diretor: 'Álex Pina',
+    produtora: 'Netflix',
+    categoria: 'Drama',
+    dataAssistiu: '2021-05-10'
+  },
+  {
+    id: 2,
+    titulo: 'Breaking Bad',
+    numeroTemporadas: 5,
+    dataLancamento: '2008-01-20',
+    diretor: 'Vince Gilligan',
+    produtora: 'Sony Pictures',
+    categoria: 'Drama',
+    dataAssistiu: '2015-01-20'
+  },
+  {
+    id: 3,
+    titulo: 'Fleabag',
+    numeroTemporadas: 2,
+    dataLancamento: '2016-07-21',
+    diretor: 'Phoebe Waller-Bridge',
+    produtora: 'BBC',
+    categoria: 'Comedy/Drama',
+    dataAssistiu: '2024-01-14'
+  }
+]
+
+function SerieForm({ isOffline }) {
+  const { id } = useParams()
+  const navigate = useNavigate()
+  const [loading, setLoading] = useState(false)
+  const [formData, setFormData] = useState({
+    titulo: '',
+    numeroTemporadas: '',
+    dataLancamento: '',
+    diretor: '',
+    produtora: '',
+    categoria: '',
+    dataAssistiu: ''
+  })
 
   useEffect(() => {
-    if (editingSerie) {
-      setFormValues({
-        titulo: editingSerie.titulo,
-        numeroTemporadas: String(editingSerie.numeroTemporadas),
-        dataLancamento: editingSerie.dataLancamento,
-        diretor: editingSerie.diretor,
-        produtora: editingSerie.produtora,
-        categoria: editingSerie.categoria,
-        dataAssistiu: editingSerie.dataAssistiu
-      })
-    } else {
-      setFormValues(initialFormState)
+    if (id) {
+      if (isOffline) {
+        const localMatch = MOCK_DATA.find((serie) => serie.id === Number.parseInt(id, 10))
+        if (localMatch) {
+          setFormData(localMatch)
+        }
+      } else {
+        axios
+          .get(`${API_URL}/${id}`)
+          .then((response) => setFormData(response.data))
+          .catch((error) => console.error(error))
+      }
     }
-    setErrorMessage('')
-  }, [editingSerie])
+  }, [id, isOffline])
 
-  const handleChange = (event) => {
-    const { name, value } = event.target
-
-    setFormValues((previousValues) => ({
-      ...previousValues,
-      [name]: value
-    }))
-  }
-
-  const isFormValid = () => {
-    const {
-      titulo,
-      numeroTemporadas,
-      dataLancamento,
-      diretor,
-      produtora,
-      categoria,
-      dataAssistiu
-    } = formValues
-
-    if (
-      !titulo.trim() ||
-      !numeroTemporadas ||
-      Number(numeroTemporadas) <= 0 ||
-      !dataLancamento ||
-      !diretor.trim() ||
-      !produtora.trim() ||
-      !categoria.trim() ||
-      !dataAssistiu
-    ) {
-      return false
-    }
-
-    return true
-  }
-
-  const handleSubmit = (event) => {
+  const handleSubmit = async (event) => {
     event.preventDefault()
+    setLoading(true)
 
-    if (!isFormValid()) {
-      setErrorMessage(
-        'Preencha todos os campos obrigatórios e verifique se o número de temporadas é maior que zero.'
-      )
-      return
-    }
+    const payload = { ...formData, numeroTemporadas: Number(formData.numeroTemporadas) }
 
-    const payload = {
-      ...formValues,
-      numeroTemporadas: Number(formValues.numeroTemporadas)
-    }
-
-    if (editingSerie) {
-      onUpdateSerie({ ...payload, id: editingSerie.id })
-    } else {
-      onAddSerie(payload)
-    }
-
-    setFormValues(initialFormState)
-    setErrorMessage('')
-
-    if (editingSerie && onFinishEdit) {
-      onFinishEdit()
+    try {
+      if (isOffline) {
+        setTimeout(() => navigate('/series'), 500)
+      } else {
+        if (id) {
+          await axios.put(API_URL, { ...payload, id: Number.parseInt(id, 10) })
+        } else {
+          await axios.post(API_URL, payload)
+        }
+        navigate('/series')
+      }
+    } catch (error) {
+      navigate('/series')
+    } finally {
+      setLoading(false)
     }
   }
-
-  const handleCancelEdit = () => {
-    if (onFinishEdit) {
-      onFinishEdit()
-    }
-    setFormValues(initialFormState)
-    setErrorMessage('')
-  }
-
-  const title = editingSerie ? 'Editar série' : 'Cadastrar séries'
-  const buttonLabel = editingSerie ? 'Salvar alterações' : 'Cadastrar Série'
 
   return (
-    <section>
-      <h1 style={{ textAlign: 'center', marginTop: '40px' }}>{title}</h1>
-
-      <form onSubmit={handleSubmit} style={{ textAlign: 'center', marginTop: '16px' }}>
-        <div>
-          <label htmlFor="titulo">Título:</label>
-          <input
-            id="titulo"
-            name="titulo"
-            type="text"
-            value={formValues.titulo}
-            onChange={handleChange}
-          />
-        </div>
-
-        <div>
-          <label htmlFor="numeroTemporadas">Número de Temporadas:</label>
-          <input
-            id="numeroTemporadas"
-            name="numeroTemporadas"
-            type="number"
-            min="1"
-            value={formValues.numeroTemporadas}
-            onChange={handleChange}
-          />
-        </div>
-
-        <div>
-          <label htmlFor="dataLancamento">Data de Lançamento da Temporada:</label>
-          <input
-            id="dataLancamento"
-            name="dataLancamento"
-            type="date"
-            value={formValues.dataLancamento}
-            onChange={handleChange}
-          />
-        </div>
-
-        <div>
-          <label htmlFor="diretor">Diretor:</label>
-          <input
-            id="diretor"
-            name="diretor"
-            type="text"
-            value={formValues.diretor}
-            onChange={handleChange}
-          />
-        </div>
-
-        <div>
-          <label htmlFor="produtora">Produtora:</label>
-          <input
-            id="produtora"
-            name="produtora"
-            type="text"
-            value={formValues.produtora}
-            onChange={handleChange}
-          />
-        </div>
-
-        <div>
-          <label htmlFor="categoria">Categoria:</label>
-          <input
-            id="categoria"
-            name="categoria"
-            type="text"
-            value={formValues.categoria}
-            onChange={handleChange}
-          />
-        </div>
-
-        <div>
-          <label htmlFor="dataAssistiu">Data em que assistiu:</label>
-          <input
-            id="dataAssistiu"
-            name="dataAssistiu"
-            type="date"
-            value={formValues.dataAssistiu}
-            onChange={handleChange}
-          />
-        </div>
-
-        <div style={{ marginTop: '8px' }}>
-          <button type="submit">{buttonLabel}</button>
-          {editingSerie && (
-            <button
-              type="button"
-              onClick={handleCancelEdit}
-              style={{ marginLeft: '8px' }}
-            >
-              Cancelar edição
-            </button>
-          )}
-        </div>
-      </form>
-
-      {errorMessage && (
-        <p style={{ color: 'red', textAlign: 'center', marginTop: '8px' }}>{errorMessage}</p>
-      )}
-    </section>
+    <Container maxWidth="sm" className="serie-form-container">
+      <Paper className="serie-form-paper">
+        <Typography variant="h4" align="center" className="serie-form-title">
+          {id ? 'Editar Registo' : 'Novo Registro'}
+        </Typography>
+        <form onSubmit={handleSubmit}>
+          <Grid container spacing={2}>
+            <Grid item xs={12}>
+              <TextField
+                label="TITULO"
+                fullWidth
+                required
+                variant="standard"
+                value={formData.titulo}
+                onChange={(event) => setFormData({ ...formData, titulo: event.target.value })}
+              />
+            </Grid>
+            <Grid item xs={12} sm={6}>
+              <TextField
+                label="TEMPORADAS"
+                type="number"
+                fullWidth
+                required
+                variant="standard"
+                value={formData.numeroTemporadas}
+                onChange={(event) =>
+                  setFormData({ ...formData, numeroTemporadas: event.target.value })
+                }
+              />
+            </Grid>
+            <Grid item xs={12} sm={6}>
+              <TextField
+                label="CATEGORIA"
+                fullWidth
+                required
+                variant="standard"
+                value={formData.categoria}
+                onChange={(event) => setFormData({ ...formData, categoria: event.target.value })}
+              />
+            </Grid>
+            <Grid item xs={12}>
+              <TextField
+                label="LANCAMENTO"
+                type="date"
+                fullWidth
+                required
+                variant="standard"
+                InputLabelProps={{ shrink: true }}
+                value={formData.dataLancamento}
+                onChange={(event) =>
+                  setFormData({ ...formData, dataLancamento: event.target.value })
+                }
+              />
+            </Grid>
+            <Grid item xs={12} sm={6}>
+              <TextField
+                label="DIRETOR"
+                fullWidth
+                required
+                variant="standard"
+                value={formData.diretor}
+                onChange={(event) => setFormData({ ...formData, diretor: event.target.value })}
+              />
+            </Grid>
+            <Grid item xs={12} sm={6}>
+              <TextField
+                label="PRODUTORA"
+                fullWidth
+                required
+                variant="standard"
+                value={formData.produtora}
+                onChange={(event) => setFormData({ ...formData, produtora: event.target.value })}
+              />
+            </Grid>
+            <Grid item xs={12}>
+              <TextField
+                label="DATA EM QUE ASSISTIU"
+                type="date"
+                fullWidth
+                required
+                variant="standard"
+                InputLabelProps={{ shrink: true }}
+                value={formData.dataAssistiu}
+                onChange={(event) =>
+                  setFormData({ ...formData, dataAssistiu: event.target.value })
+                }
+              />
+            </Grid>
+            <Grid item xs={12} className="serie-form-actions-grid">
+              <Button
+                type="submit"
+                variant="contained"
+                fullWidth
+                disabled={loading}
+                className="serie-form-submit-button"
+              >
+                {loading ? <CircularProgress size={24} color="inherit" /> : 'Confirmar Registro'}
+              </Button>
+              <Button onClick={() => navigate('/series')} fullWidth className="serie-form-cancel-button">
+                Cancelar
+              </Button>
+            </Grid>
+          </Grid>
+        </form>
+      </Paper>
+    </Container>
   )
 }
 

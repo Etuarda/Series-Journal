@@ -1,0 +1,142 @@
+.serie-list-root {
+  padding-top: 24px;
+  padding-bottom: 24px;
+}
+
+.serie-list-offline-alert {
+  margin-bottom: 32px;
+  border-radius: 0;
+  background-color: rgba(212, 175, 55, 0.1);
+  color: #d4af37;
+  border: 1px solid #d4af37;
+}
+
+.serie-list-header-wrap {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: 48px;
+  border-bottom: 1px solid #3d1212;
+  padding-bottom: 16px;
+  gap: 16px;
+}
+
+.serie-list-header-caption {
+  color: #d4af37;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+.serie-list-main-title {
+  color: #ff1f1f !important;
+  font-family: 'Pinyon Script', cursive !important;
+  font-weight: 400 !important;
+  text-transform: none !important;
+  letter-spacing: 0 !important;
+}
+
+.serie-list-search-field {
+  width: 100%;
+}
+
+.serie-list-icon-heart {
+  color: #e50914;
+  fill: #e50914;
+}
+
+.serie-list-icon-spade {
+  color: #d4af37;
+  fill: #d4af37;
+}
+
+.serie-list-icon-search {
+  color: #d4af37;
+}
+
+.serie-list-card {
+  position: relative;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+.serie-list-card-content {
+  padding: 24px;
+  flex-grow: 1;
+}
+
+.serie-list-card-top {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 16px;
+}
+
+.serie-list-id-caption {
+  color: #d4af37;
+  font-weight: 700;
+}
+
+.serie-list-title {
+  margin-bottom: 24px;
+  min-height: 50px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #fdfbf7;
+  font-size: 1.25rem;
+}
+
+.serie-list-info-wrap {
+  display: grid;
+  gap: 8px;
+  border-top: 1px solid #3d1212;
+  padding-top: 16px;
+  margin-bottom: 24px;
+}
+
+.serie-list-category-caption {
+  color: #d4af37;
+}
+
+.serie-list-seen-wrap {
+  background-color: rgba(229, 9, 20, 0.1);
+  padding-top: 8px;
+  padding-bottom: 8px;
+  text-align: center;
+}
+
+.serie-list-seen-caption {
+  font-weight: 700;
+}
+
+.serie-list-actions-wrap {
+  padding: 8px;
+  display: flex;
+  justify-content: center;
+  gap: 16px;
+  background-color: rgba(0, 0, 0, 0.2);
+}
+
+.serie-list-empty-text {
+  margin-top: 80px;
+  opacity: 0.5;
+}
+
+@media (min-width: 600px) {
+  .serie-list-root {
+    padding-top: 48px;
+    padding-bottom: 48px;
+  }
+}
+
+@media (min-width: 900px) {
+  .serie-list-header-wrap {
+    flex-direction: row;
+    align-items: flex-end;
+  }
+
+  .serie-list-search-field {
+    max-width: 300px;
+  }
+}

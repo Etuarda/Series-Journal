@@ -1,15 +1,10 @@
 import React from 'react'
 import SerieForm from '../components/SerieForm/SerieForm.jsx'
 
-function CreateSeriePage({ onAddSerie, onUpdateSerie, editingSerie, onFinishEdit }) {
+function CreateSeriePage({ isOffline }) {
   return (
     <main>
-      <SerieForm
-        onAddSerie={onAddSerie}
-        onUpdateSerie={onUpdateSerie}
-        editingSerie={editingSerie}
-        onFinishEdit={onFinishEdit}
-      />
+      <SerieForm isOffline={isOffline} />
     </main>
   )
 }

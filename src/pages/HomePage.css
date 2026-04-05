@@ -1,0 +1,114 @@
+.home-page-container {
+  min-height: calc(100vh - 96px);
+  display: grid;
+  place-items: center;
+  padding: 24px 16px;
+}
+
+.home-page-paper {
+  padding: 32px 24px;
+  width: min(100%, 700px);
+  margin: 0 auto;
+  background-color: #fdfbf7 !important;
+  background-image: none !important;
+  color: #1a0505 !important;
+  border-radius: 8px;
+  box-shadow: 0 30px 60px rgba(0, 0, 0, 0.7);
+  position: relative;
+  overflow: hidden;
+  text-align: center;
+}
+
+.home-page-top-bar {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 8px;
+  background-color: #d4af37;
+  opacity: 0.8;
+}
+
+.home-page-title {
+  color: #ff1f1f !important;
+  font-family: 'Pinyon Script', cursive !important;
+  font-weight: 400 !important;
+}
+
+.home-page-heading {
+  color: #1a0505;
+  margin-bottom: 20px;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  font-size: 0.9rem;
+}
+
+.home-page-body {
+  margin-bottom: 56px;
+  font-size: 1rem;
+  font-style: italic;
+  font-family: 'Playfair Display', serif;
+  opacity: 0.8;
+}
+
+.home-page-actions {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  justify-content: center;
+  align-items: stretch;
+  width: 100%;
+  max-width: 440px;
+  margin: 0 auto;
+  margin-top: 18px;
+}
+
+.home-page-actions .MuiButton-root {
+  min-height: 46px;
+  padding: 10px 20px;
+}
+
+.home-page-primary-button {
+  background-color: #2d0a0a !important;
+  color: #fdfbf7 !important;
+}
+
+.home-page-primary-button:hover {
+  background-color: #e50914 !important;
+}
+
+.home-page-secondary-button {
+  border-color: #2d0a0a !important;
+  color: #2d0a0a !important;
+  border-width: 2px !important;
+}
+
+@media (min-width: 600px) {
+  .home-page-container {
+    min-height: calc(100vh - 110px);
+    padding: 40px 24px;
+  }
+
+  .home-page-paper {
+    padding: 64px 72px;
+    border-radius: 16px;
+  }
+
+  .home-page-heading {
+    font-size: 1rem;
+    margin-bottom: 24px;
+    white-space: nowrap;
+  }
+
+  .home-page-body {
+    margin-bottom: 92px;
+    font-size: 1.2rem;
+  }
+
+  .home-page-actions {
+    flex-direction: row;
+    gap: 20px;
+    max-width: 560px;
+  }
+}

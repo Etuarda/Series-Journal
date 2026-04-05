@@ -1,125 +1,180 @@
-#  Série Journal – CRUD de Séries 
+# Serie Journal - Projeto Fase 2
 
-**Nome:** *Eduarda Silva Santos*
+Nome: Eduarda Silva Santos
+Disciplina: Desenvolvimento de Sistemas Frontend
 
-Este é o projeto da **Fase 1 – Desenvolvimento de Sistemas Frontend**, contendo um CRUD simples de séries utilizando **React + Vite**.
-O objetivo desta fase é demonstrar **componentização, dinamicidade, formulário com validação e organização de estado**, seguindo boas práticas e estrutura limpa.
+Aplicacao React com CRUD de series, navegacao por rotas, consumo de API REST com Axios, busca dinamica e testes de componentes.
 
----
+## 1) Requisitos atendidos (rubrica)
 
-##  Como executar este projeto
+- Documentacao completa para execucao local (frontend + API) e testes.
+- Uso de biblioteca de UI: Material UI.
+- Rotas implementadas com React Router.
+- Integracao com endpoints da API via Axios: GET, GET por id, POST, PUT, DELETE.
+- Componentes obrigatorios implementados: SerieList, SerieForm e NavBar.
+- Funcionalidades dinamicas implementadas: listagem, busca, criacao, edicao e exclusao.
+- Testes automatizados com Vitest + Testing Library.
 
-Abra o terminal dentro da pasta do projeto e execute:
+## 2) Tecnologias
+
+- React 18
+- Vite
+- React Router DOM
+- Axios
+- Material UI (MUI)
+- Lucide React (icones)
+- Vitest + Testing Library
+
+## 3) Estrutura de pastas
+
+```text
+src/
+  components/
+    NavBar/
+      NavBar.jsx
+      NavBar.test.jsx
+    SerieForm/
+      SerieForm.jsx
+    SerieList/
+      SerieList.jsx
+      SerieList.test.jsx
+  pages/
+    HomePage.jsx
+    AboutPage.jsx
+    CreateSeriePage.jsx
+    SerieListPage.jsx
+  test/
+    setup.js
+  App.jsx
+  main.jsx
+```
+
+## 4) Como executar o frontend
+
+1. Instale dependencias:
 
 ```bash
 npm install
+```
+
+2. Execute em modo desenvolvimento:
+
+```bash
 npm run dev
 ```
 
-Após isso, abra o navegador no endereço exibido pelo Vite (geralmente):
+3. Abra no navegador (URL padrao do Vite):
 
-```
+```text
 http://localhost:5173
 ```
 
----
+## 5) Como executar a API (serieJournal-api)
 
-## Resultado esperado no navegador
+Repositorio de referencia informado no enunciado:
+https://github.com/adsPucrsOnline/DesenvolvimentoFrontend/
 
-https://youtu.be/V632_vn_I4o
+1. Clone o repositorio da disciplina.
+2. Acesse a pasta da API:
 
+```bash
+cd DesenvolvimentoFrontend/serieJournal-api
+```
 
----
+3. Instale e rode:
 
-##  Introdução
+```bash
+npm install
+npm start
+```
 
-Este projeto foi desenvolvido para demonstrar:
+4. A API deve subir em:
 
-* Uso de **componentes React**
-* Manipulação de **estado local (useState)**
-* Navegação simples entre páginas sem React Router
-* CRUD **estático** (criar, listar, editar e remover séries)
-* Validação de formulário
-* Estrutura modular, limpa e organizada
+```text
+http://localhost:5000
+```
 
----
+## 6) Endpoints utilizados
 
----
+- GET http://localhost:5000/series
+- GET http://localhost:5000/series/:id
+- POST http://localhost:5000/series
+- PUT http://localhost:5000/series
+- DELETE http://localhost:5000/series/:id
 
-##  Componentes
+## 7) Como executar os testes
 
-###  NavBar
+Executar em modo watch:
 
-* Exibe os links para navegação entre as páginas.
-* Usa callbacks enviados pelo componente pai.
+```bash
+npm test
+```
 
----
+Executar uma vez (CI/local):
 
-###  SerieForm
+```bash
+npm run test:run
+```
 
+## 8) Descricao dos componentes
 
-* `onAddSerie`: cria uma nova série
-* `onUpdateSerie`: atualiza série existente
-* `editingSerie`: dados da série em edição
-* `onFinishEdit`: volta à lista após salvar
+### NavBar
 
-**Funções principais:**
+- Barra de navegacao principal.
+- Exibe links para Home, Sobre, Cadastrar e Lista de series.
+- Possui comportamento responsivo com menu mobile (Drawer).
 
-* Renderiza os campos obrigatórios:
+### SerieForm
 
-  * Título
-  * Número de Temporadas
-  * Data de Lançamento
-  * Diretor
-  * Produtora
-  * Categoria
-  * Data em que Assistiu
-* Possui validação e feedback visual
+- Formulario de criacao e edicao de series.
+- Campos obrigatorios:
+  - Titulo
+  - Numero de Temporadas
+  - Data de Lancamento da Temporada
+  - Diretor
+  - Produtora
+  - Categoria
+  - Data em que assistiu
+- Envia dados para API (POST/PUT).
 
----
+### SerieList
 
-###  SerieList
+- Lista series cadastradas.
+- Busca por titulo ou categoria.
+- Permite editar e excluir cada item.
+- Exibe aviso quando em modo offline (fallback local).
 
+## 9) Paginas implementadas
 
-* `series` – lista atual de séries
-* `onEditSerie`
-* `onDeleteSerie`
-* `onCreateNewSerie`
+- Home
+- Sobre
+- Cadastro de serie
+- Lista de series
+- Edicao de serie (rota por id)
 
-**Funções principais:**
+## 10) Rotas da aplicacao
 
-* Lista todas as séries cadastradas
-* Botões **Editar** e **Excluir** para cada série
-* Barra de busca por título ou categoria
-* Botão **Cadastrar nova série**, igual ao exemplo das telas
+- / -> Home
+- /about -> Sobre
+- /create -> Cadastro
+- /series -> Lista de series
+- /edit/:id -> Edicao
 
----
+## 11) Evidencias visuais (prints/GIF)
 
-### HomePage
+Adicionar os arquivos de evidencias na pasta abaixo e manter os nomes:
 
-Página inicial simples, contendo mensagem de boas-vindas.
+```text
+docs/images/
+  home.png
+  about.png
+  create.png
+  list.png
+  edit.png
+```
 
----
+## 12) Observacoes finais
 
-###  AboutPage
-
-Página explicativa sobre o projeto.
-
----
-
-###  CreateSeriePage
-
-Encapsula o `SerieForm` e identifica se está no modo “criar” ou “editar”.
-
----
-
-## Conclusão
-
-Este projeto demonstra:
-
-* Componentização correta
-* Controle claro de estado
-* CRUD estático funcional
-* Boas práticas e código limpo
-* Navegação intuitiva
-* Estrutura de pastas organizada 
+- O projeto esta pronto para execucao em navegador.
+- O envio deve ser feito em .zip sem a pasta node_modules.
+- Nome sugerido do arquivo final: nome_aluno-projeto-fase-2.zip
