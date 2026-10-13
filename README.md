@@ -2,8 +2,9 @@
 
 Nome: Eduarda Silva Santos
 Disciplina: Desenvolvimento de Sistemas Frontend
+Tipo: Projeto acadêmico
 
-Aplicacao React com CRUD de series, navegacao por rotas, consumo de API REST com Axios, busca dinamica e testes de componentes.
+Aplicação React acadêmica com CRUD de séries, navegação por rotas, consumo de API REST com Axios, busca dinâmica e testes de componentes. A API precisa estar conectada para que as alterações sejam salvas.
 
 ## 1) Requisitos atendidos (rubrica)
 
@@ -50,6 +51,8 @@ src/
 ```
 
 ## 4) Como executar o frontend
+
+O frontend depende da API `serieJournal-api` para listar e persistir séries. Inicie a API conforme a seção seguinte antes de testar as operações de cadastro, edição e exclusão. Sem conexão, o frontend exibe dados de demonstração, que não são persistidos.
 
 1. Instale dependencias:
 

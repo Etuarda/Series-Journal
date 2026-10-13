@@ -1,14 +1,14 @@
 .home-page-container {
-  min-height: calc(100vh - 72px);
+  min-height: calc(100vh - 56px);
   display: flex;
   align-items: center;
   justify-content: center;
-  padding: 16px 12px;
+  padding: 24px 12px;
   width: 100%;
 }
 
 .home-page-paper {
-  padding: 24px 16px;
+  padding: 28px 18px;
   width: 100%;
   max-width: 680px;
   margin: 0 auto;
@@ -31,11 +31,19 @@
   background-color: #d4af37;
 }
 
+.home-page-project-label {
+  display: block;
+  color: #624f0b;
+  font-weight: 800 !important;
+  font-size: 0.72rem !important;
+  line-height: 1.4 !important;
+}
+
 .home-page-title {
   color: #ff1f1f !important;
   font-family: 'Pinyon Script', cursive !important;
   font-weight: 400 !important;
-  font-size: clamp(2.2rem, 9vw, 4.5rem) !important;
+  font-size: 2.5rem !important;
   line-height: 1.1 !important;
   margin-top: 8px !important;
   margin-bottom: 8px !important;
@@ -52,12 +60,50 @@
 }
 
 .home-page-body {
-  margin-bottom: 32px;
+  margin-bottom: 20px;
   font-size: 0.95rem;
   font-style: italic;
   font-family: 'Playfair Display', serif;
   opacity: 0.85;
   line-height: 1.6;
+}
+
+.home-page-api-note {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  margin: 0 auto 24px;
+  padding: 14px;
+  max-width: 500px;
+  border: 1px solid #d4af37;
+  border-radius: 4px;
+  background-color: rgba(212, 175, 55, 0.12);
+  color: #2d0a0a;
+  text-align: left;
+}
+
+.home-page-api-note > svg {
+  flex: 0 0 auto;
+  margin-top: 2px;
+  color: #8a6d00;
+}
+
+.home-page-api-title {
+  margin-bottom: 4px !important;
+  font-size: 0.9rem !important;
+  font-weight: 800 !important;
+}
+
+.home-page-api-copy {
+  font-size: 0.82rem !important;
+  line-height: 1.55 !important;
+  overflow-wrap: anywhere;
+}
+
+.home-page-api-copy code {
+  font-family: monospace;
+  font-size: 0.95em;
+  font-weight: 700;
 }
 
 .home-page-actions {
@@ -107,7 +153,7 @@
 
   .home-page-paper {
     padding: 48px 40px;
-    border-radius: 12px;
+    border-radius: 8px;
     box-shadow: 0 30px 60px rgba(0, 0, 0, 0.7);
   }
 
@@ -120,9 +166,18 @@
     margin-bottom: 20px;
   }
 
+  .home-page-title {
+    font-size: 4rem !important;
+  }
+
   .home-page-body {
-    margin-bottom: 48px;
+    margin-bottom: 24px;
     font-size: 1.15rem;
+  }
+
+  .home-page-api-note {
+    margin-bottom: 32px;
+    padding: 16px 18px;
   }
 
   .home-page-actions {

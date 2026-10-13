@@ -35,7 +35,7 @@ function SerieList({ series, onDeleteSerie, onEditSerie, isOffline }) {
     <Box className="serie-list-root">
       {isOffline && (
         <Alert severity="warning" className="serie-list-offline-alert">
-          <b>MODO OFFLINE:</b> Servidor nao detectado. Exibindo dados de demonstracao.
+          <b>API desconectada:</b> exibindo dados de demonstração. Alterações não serão salvas.
         </Alert>
       )}
 

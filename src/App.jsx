@@ -167,7 +167,7 @@ function AppContent() {
 
       {isOffline && (
         <Alert severity="warning" className="app-offline-alert">
-          Modo offline ativo. Exibindo dados de demonstracao.
+          API desconectada. Dados de demonstração; alterações não serão salvas.
         </Alert>
       )}
     </>
