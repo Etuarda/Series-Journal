@@ -66,7 +66,7 @@ function NavBar() {
         <Box className="navbar-logo-wrap">
           <Clapperboard size={24} className="navbar-logo-icon" />
           <Typography variant="h6" className="navbar-brand-title">
-             <Box component="span" className="navbar-brand-accent"></Box>
+            Série <Box component="span" className="navbar-brand-accent">Journal</Box>
           </Typography>
         </Box>
 

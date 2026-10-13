@@ -119,7 +119,7 @@ function AppContent() {
         <Route
           path="/series"
           element={
-            <Container maxWidth="lg">
+            <Container maxWidth="lg" sx={{ px: { xs: 1.5, sm: 3 } }}>
               {loading ? (
                 <Box className="app-loading-box">
                   <CircularProgress color="secondary" />

@@ -1,19 +1,22 @@
 .home-page-container {
-  min-height: calc(100vh - 96px);
-  display: grid;
-  place-items: center;
-  padding: 24px 16px;
+  min-height: calc(100vh - 72px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 16px 12px;
+  width: 100%;
 }
 
 .home-page-paper {
-  padding: 32px 24px;
-  width: min(100%, 700px);
+  padding: 24px 16px;
+  width: 100%;
+  max-width: 680px;
   margin: 0 auto;
   background-color: #fdfbf7 !important;
   background-image: none !important;
   color: #1a0505 !important;
   border-radius: 8px;
-  box-shadow: 0 30px 60px rgba(0, 0, 0, 0.7);
+  box-shadow: 0 16px 40px rgba(0, 0, 0, 0.6);
   position: relative;
   overflow: hidden;
   text-align: center;
@@ -24,49 +27,55 @@
   top: 0;
   left: 0;
   right: 0;
-  height: 8px;
+  height: 6px;
   background-color: #d4af37;
-  opacity: 0.8;
 }
 
 .home-page-title {
   color: #ff1f1f !important;
   font-family: 'Pinyon Script', cursive !important;
   font-weight: 400 !important;
+  font-size: clamp(2.2rem, 9vw, 4.5rem) !important;
+  line-height: 1.1 !important;
+  margin-top: 8px !important;
+  margin-bottom: 8px !important;
 }
 
 .home-page-heading {
   color: #1a0505;
-  margin-bottom: 20px;
+  margin-bottom: 16px;
   font-weight: 800;
   text-transform: uppercase;
   letter-spacing: 0.5px;
-  font-size: 0.9rem;
+  font-size: 0.85rem;
+  line-height: 1.4;
 }
 
 .home-page-body {
-  margin-bottom: 56px;
-  font-size: 1rem;
+  margin-bottom: 32px;
+  font-size: 0.95rem;
   font-style: italic;
   font-family: 'Playfair Display', serif;
-  opacity: 0.8;
+  opacity: 0.85;
+  line-height: 1.6;
 }
 
 .home-page-actions {
   display: flex;
   flex-direction: column;
-  gap: 14px;
+  gap: 12px;
   justify-content: center;
   align-items: stretch;
   width: 100%;
   max-width: 440px;
   margin: 0 auto;
-  margin-top: 18px;
 }
 
 .home-page-actions .MuiButton-root {
-  min-height: 46px;
-  padding: 10px 20px;
+  min-height: 48px;
+  padding: 12px 20px;
+  font-size: 0.9rem;
+  letter-spacing: 1px;
 }
 
 .home-page-primary-button {
@@ -84,31 +93,47 @@
   border-width: 2px !important;
 }
 
+.home-page-secondary-button:hover {
+  background-color: rgba(45, 10, 10, 0.08) !important;
+  border-color: #e50914 !important;
+  color: #e50914 !important;
+}
+
 @media (min-width: 600px) {
   .home-page-container {
-    min-height: calc(100vh - 110px);
-    padding: 40px 24px;
+    min-height: calc(100vh - 96px);
+    padding: 32px 24px;
   }
 
   .home-page-paper {
-    padding: 64px 72px;
-    border-radius: 16px;
+    padding: 48px 40px;
+    border-radius: 12px;
+    box-shadow: 0 30px 60px rgba(0, 0, 0, 0.7);
+  }
+
+  .home-page-top-bar {
+    height: 8px;
   }
 
   .home-page-heading {
     font-size: 1rem;
-    margin-bottom: 24px;
-    white-space: nowrap;
+    margin-bottom: 20px;
   }
 
   .home-page-body {
-    margin-bottom: 92px;
-    font-size: 1.2rem;
+    margin-bottom: 48px;
+    font-size: 1.15rem;
   }
 
   .home-page-actions {
     flex-direction: row;
-    gap: 20px;
-    max-width: 560px;
+    gap: 16px;
+    max-width: 520px;
+  }
+}
+
+@media (min-width: 900px) {
+  .home-page-paper {
+    padding: 60px 64px;
   }
 }

@@ -1,12 +1,13 @@
 .navbar-appbar {
   background-color: #1a0505;
   border-bottom: 2px solid #d4af37;
-  box-shadow: none;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.4);
 }
 
 .navbar-toolbar {
-  justify-content: flex-start;
-  padding-right: 8px !important;
+  justify-content: space-between;
+  padding: 0 12px !important;
+  min-height: 56px !important;
   width: 100%;
 }
 
@@ -14,33 +15,44 @@
   display: flex;
   align-items: center;
   gap: 8px;
+  text-decoration: none;
 }
 
 .navbar-logo-icon {
   color: #d4af37;
+  flex-shrink: 0;
 }
 
 .navbar-brand-title {
   font-weight: 400 !important;
   font-family: 'Pinyon Script', cursive !important;
   color: #fdfbf7;
-  font-size: 1.05rem;
+  font-size: 1.25rem !important;
+  line-height: 1 !important;
 }
 
 .navbar-brand-accent {
   color: #e50914;
 }
 
+.navbar-mobile-menu-button {
+  display: inline-flex;
+  min-width: 44px !important;
+  min-height: 44px !important;
+  color: #fdfbf7 !important;
+  margin-left: auto !important;
+}
+
 .navbar-desktop-menu {
   display: none;
-  gap: 8px;
+  gap: 4px;
   margin-left: auto;
-  margin-right: 0;
 }
 
 .navbar-desktop-button {
   color: #fdfbf7 !important;
-  font-size: 0.75rem;
+  font-size: 0.8rem;
+  padding: 8px 14px !important;
   white-space: nowrap;
 }
 
@@ -53,60 +65,67 @@
   color: #e50914;
 }
 
-.navbar-mobile-menu-button {
-  display: inline-flex;
-  margin-left: auto !important;
-  margin-right: 0 !important;
-  align-self: center;
-}
-
 .navbar-drawer-paper {
-  width: 280px;
+  width: min(85vw, 300px);
 }
 
 .navbar-drawer-root {
   height: 100%;
   background-color: #1a0505;
-  padding: 16px;
+  padding: 20px 16px;
+  display: flex;
+  flex-direction: column;
 }
 
 .navbar-drawer-close-wrap {
   display: flex;
   justify-content: flex-end;
-  margin-bottom: 32px;
+  margin-bottom: 24px;
+}
+
+.navbar-drawer-close-wrap .MuiIconButton-root {
+  min-width: 44px;
+  min-height: 44px;
 }
 
 .navbar-list-item {
-  margin-bottom: 16px;
+  margin-bottom: 12px;
+  border-radius: 4px;
+  min-height: 48px;
+  padding: 8px 16px !important;
   color: #fdfbf7 !important;
+  transition: background-color 0.2s ease;
 }
 
 .navbar-list-item-active {
   color: #e50914 !important;
+  background-color: rgba(229, 9, 20, 0.12);
   border-left: 4px solid #e50914;
 }
 
 .navbar-list-item-icon {
   color: inherit;
+  min-width: 40px;
 }
 
 @media (min-width: 600px) {
+  .navbar-toolbar {
+    padding: 0 24px !important;
+    min-height: 64px !important;
+  }
+
   .navbar-logo-wrap {
-    gap: 16px;
+    gap: 12px;
   }
 
   .navbar-brand-title {
-    font-size: 1.5rem;
+    font-size: 1.5rem !important;
   }
 }
 
 @media (min-width: 900px) {
   .navbar-desktop-menu {
     display: flex;
-  }
-
-  .navbar-toolbar {
-    padding-right: 6px !important;
   }
 
   .navbar-mobile-menu-button {

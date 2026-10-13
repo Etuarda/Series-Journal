@@ -13,31 +13,31 @@ const theme = createTheme({
     h1: {
       fontFamily: "'Pinyon Script', cursive",
       fontWeight: 400,
-      fontSize: '4rem',
-      '@media (min-width:600px)': { fontSize: '6rem' },
+      fontSize: '2.8rem',
+      '@media (min-width:600px)': { fontSize: '5rem' },
       color: '#D4AF37'
     },
     h2: {
       fontFamily: "'Pinyon Script', cursive",
       fontWeight: 400,
-      fontSize: '3rem',
-      '@media (min-width:600px)': { fontSize: '4.5rem' },
+      fontSize: '2.4rem',
+      '@media (min-width:600px)': { fontSize: '4rem' },
       color: '#2D0A0A'
     },
     h4: {
       fontFamily: "'Playfair Display', serif",
       fontWeight: 700,
       textTransform: 'uppercase',
-      letterSpacing: '2px',
-      fontSize: '1.5rem',
-      '@media (min-width:600px)': { fontSize: '2.125rem', letterSpacing: '4px' },
+      letterSpacing: '1px',
+      fontSize: '1.35rem',
+      '@media (min-width:600px)': { fontSize: '2rem', letterSpacing: '3px' },
       color: '#FDFBF7'
     },
     h5: {
       fontFamily: "'Playfair Display', serif",
       fontWeight: 700,
       fontStyle: 'italic',
-      letterSpacing: '1px'
+      letterSpacing: '0.5px'
     }
   },
   shape: { borderRadius: 4 },
@@ -45,9 +45,10 @@ const theme = createTheme({
     MuiButton: {
       styleOverrides: {
         root: {
-          borderRadius: 0,
+          borderRadius: 4,
           textTransform: 'uppercase',
-          fontWeight: 700
+          fontWeight: 700,
+          minHeight: '44px'
         }
       }
     },
