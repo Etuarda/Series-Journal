@@ -3,8 +3,16 @@
   <head>
     <meta charset="UTF-8" />
     <title>Série Journal</title>
-    <script type="module" crossorigin src="/Series-Journal/assets/index-CSj5y_Oz.js"></script>
-    <link rel="stylesheet" crossorigin href="/Series-Journal/assets/index-FL93ZkQh.css">
+    <script>
+      if (window.location.hostname.includes('github.io')) {
+        const path = window.location.pathname.replace(/\/+$/, '')
+        if (!path.endsWith('/docs')) {
+          window.location.replace(path + '/docs/' + window.location.hash)
+        }
+      }
+    </script>
+    <script type="module" crossorigin src="./assets/index-CSj5y_Oz.js"></script>
+    <link rel="stylesheet" crossorigin href="./assets/index-FL93ZkQh.css">
   </head>
   <body>
     <div id="root"></div>
